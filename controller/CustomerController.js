@@ -301,27 +301,41 @@ $("#customer-update-btn").on('click', () => {
         //     }
         // });
 
-        var form = new FormData();
-        form.append("customerId", customerId);
-        form.append("name", customerName);
-        form.append("address", customerAddress);
-        form.append("phone", customerMobile);
+        $.ajax({
+            url: "http://localhost:8080/POS/api/v1/customers/"+customerId,
+            type: "GET",
+            headers: {"Content-Type": "application/json"},
+            success: (res) => {
+                if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
+                    alert("Customer ID not found");
+                } else {
+                    var form = new FormData();
+                    form.append("customerId", customerId);
+                    form.append("name", customerName);
+                    form.append("address", customerAddress);
+                    form.append("phone", customerMobile);
 
-        var settings = {
-            "url": "http://localhost:8080/POS/api/v1/customers",
-            "method": "PATCH",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-        };
+                    var settings = {
+                        "url": "http://localhost:8080/POS/api/v1/customers",
+                        "method": "PATCH",
+                        "timeout": 0,
+                        "processData": false,
+                        "mimeType": "multipart/form-data",
+                        "contentType": false,
+                        "data": form
+                    };
 
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-            console.log("Customer Updated");
-            alert("Customer Updated");
-            loadTableCustomer();
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        console.log("Customer Updated");
+                        alert("Customer Updated");
+                        loadTableCustomer();
+                    });
+                }
+            },
+            error: (res) => {
+                console.error(res);
+            }
         });
         clearFields();
     } else {

@@ -1,4 +1,4 @@
-//loadTableProduct();
+loadTableProduct();
 
 var recordIndex = undefined;
 
@@ -91,7 +91,7 @@ function validatePrice(){
  export function loadTableProduct(){
     $('#product-table').empty();
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product",
+        url: "http://localhost:8080/POS/api/v1/products",
         method: "GET",
         success: function (results) {
             $('#product-table').empty();
@@ -117,15 +117,19 @@ function validatePrice(){
 $('#btnSearchProduct').on('click', () => {
     let proId = $('#pro-custom-id').val();
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product?id="+proId,
+        url: "http://localhost:8080/POS/api/v1/products/"+proId,
         type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
-            console.log(JSON.stringify(res));
-            $('#pro-custom-name').val(res.name);
-            $('#pro-custom-type').val(res.type);
-            $('#pro-custom-qty').val(res.qty);
-            $('#pro-custom-price').val(res.price);
+            if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
+                alert("Product not found");
+            } else{
+                console.log(JSON.stringify(res));
+                $('#pro-custom-name').val(res.name);
+                $('#pro-custom-type').val(res.type);
+                $('#pro-custom-qty').val(res.qty);
+                $('#pro-custom-price').val(res.price);
+            }
         },
         error: (res) => {
             console.error(res);
@@ -153,37 +157,47 @@ $('#product-add-btn').on('click', () => {
         var productQty = $('#pro-custom-qty').val();
         var productPrice = $('#pro-custom-price').val();
 
-        let product = {
-            id: productId,
-            name: productName,
-            type: productType,
-            qty: productQty,
-            price: productPrice
-        }
-
-        const productJSON = JSON.stringify(product)
-        console.log(productJSON);
         $.ajax({
-            url: "http://localhost:8081/POS_BackEnd/product",
-            type: "POST",
-            data : productJSON,
+            url: "http://localhost:8080/POS/api/v1/products/"+productId,
+            type: "GET",
             headers: {"Content-Type": "application/json"},
             success: (res) => {
-                console.log(JSON.stringify(res));
-                loadTableProduct();
+                if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
+                    var form = new FormData();
+                    form.append("id", productId);
+                    form.append("name", productName);
+                    form.append("type", productType);
+                    form.append("qty", productQty);
+                    form.append("price", productPrice);
+                    
+
+                    var settings = {
+                        "url": "http://localhost:8080/POS/api/v1/products",
+                        "method": "POST",
+                        "timeout": 0,
+                        "processData": false,
+                        "mimeType": "multipart/form-data",
+                        "contentType": false,
+                        "data": form
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        loadTableProduct();
+                        alert("Product Added Successfully");
+                    });
+
+                } else{
+                    alert("Product already exists");
+                }
             },
             error: (res) => {
                 console.error(res);
             }
-            // data: JSON.stringify({
-            //     "id": 3,
-            //     "name": "Hulk",
-            //     "address": "NYC",
-            //     "phone": "0760199035"
-            // }),
         });
 
-        totalProducts();
+        
+        //totalProducts();
         clearFields();
     } else {
         return false;
@@ -196,17 +210,24 @@ $("#product-table").on('click', 'tr',function()  {
     recordIndex = $(this).index();
     console.log(recordIndex);
 
-    let productId = $(this).find(".pro_id").text();
-    let productName = $(this).find(".pro_name").text();
-    let productType = $(this).find(".pro_type").text();
-    let productQty = $(this).find(".pro_qty").text();
-    let productPrice = $(this).find(".pro_price").text();
+    let productId = $(this).find("td:eq(0)").text();
+    let productName = $(this).find("td:eq(1)").text();
+    let productType = $(this).find("td:eq(2)").text();
+    let productQty = $(this).find("td:eq(3)").text();
+    let productPrice = $(this).find("td:eq(4)").text();
 
     $("#pro-custom-id").val(productId);
     $("#pro-custom-name").val(productName);
     $("#pro-custom-type").val(productType);
     $("#pro-custom-qty").val(productQty);
     $("#pro-custom-price").val(productPrice);
+
+    console.log(productId);
+    console.log(productName);
+    console.log(productType);
+    console.log(productQty);
+    console.log(productPrice);
+
 });
 
 $("#product-update-btn").on('click', () => {
@@ -216,34 +237,41 @@ $("#product-update-btn").on('click', () => {
     var productQty = $('#pro-custom-qty').val();
     var productPrice = $('#pro-custom-price').val();
 
-    let product = {
-        id: productId,
-        name: productName,
-        type: productType,
-        qty: productQty,
-        price: productPrice
-    }
-
-    const productJSON = JSON.stringify(product)
-    console.log(productJSON);
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product",
-        type: "PUT",
-        data : productJSON,
+        url: "http://localhost:8080/POS/api/v1/products/"+productId,
+        type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
-            console.log(JSON.stringify(res));
-            loadTableProduct();
+            if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
+                alert("Product not found");
+            } else{
+                var form = new FormData();
+                form.append("id", productId);
+                form.append("name", productName);
+                form.append("type", productType);
+                form.append("qty", productQty);
+                form.append("price", productPrice);
+                
+                var settings = {
+                    "url": "http://localhost:8080/POS/api/v1/products",
+                    "method": "PATCH",
+                    "timeout": 0,
+                    "processData": false,
+                    "mimeType": "multipart/form-data",
+                    "contentType": false,
+                    "data": form
+                };
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    loadTableProduct();
+                    alert("Product Updated Successfully");
+                });
+            }
         },
         error: (res) => {
             console.error(res);
         }
-        // data: JSON.stringify({
-        //     "id": 3,
-        //     "name": "Hulk",
-        //     "address": "NYC",
-        //     "phone": "0760199035"
-        // }),
     });
     clearFields();
 });
@@ -253,12 +281,25 @@ $('#product-delete-btn').on('click', () => {
     let productId = $('#pro-custom-id').val();
 
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product?id="+productId,
-        type: "DELETE",
+        url: "http://localhost:8080/POS/api/v1/products/"+productId,
+        type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
-            console.log(JSON.stringify(res));
-            loadTableProduct();
+            if (res && JSON.stringify(res).toLowerCase().includes("not found")) {
+                alert("Product not found");
+            } else{
+                var settings = {
+                    "url": "http://localhost:8080/POS/api/v1/products/"+productId,
+                    "method": "DELETE",
+                    "timeout": 0,
+                  };
+                  
+                  $.ajax(settings).done(function (response) {
+                    console.log(response);
+                    loadTableProduct();
+                    alert("Product Deleted Successfully");
+                  });
+            }
         },
         error: (res) => {
             console.error(res);
