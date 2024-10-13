@@ -97,7 +97,7 @@ function validatePrice(){
             $('#product-table').empty();
             results.forEach(function (post) {
                 var record = `<tr>
-                                <td>${post.id}</td>     
+                                <td>${post.productId}</td>     
                                 <td>${post.name}</td>
                                 <td>${post.type}</td>     
                                 <td>${post.qty}</td>

@@ -21,7 +21,7 @@ function updateCustomerIDs() {
 
     // Fetch customer data from the server
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/customer",
+        url: "http://localhost:8080/POS/api/v1/customers",
         type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
@@ -50,7 +50,7 @@ $('#customerSelectID').on('change', function() {
 
     // Fetch customer data from the server to find the selected customer
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/customer?id="+cusId,
+        url: "http://localhost:8080/POS/api/v1/customers/"+cusId,
         type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
@@ -76,15 +76,15 @@ function updateProductIDs() {
 
     // Fetch customer data from the server
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product",
+        url: "http://localhost:8080/POS/api/v1/products",
         type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
             // Assuming `res` is an array of customer objects
             res.forEach(product => {
                 const option = document.createElement("option");
-                option.value = product.id; // Set value to customer ID
-                option.text = product.id; // Display customer ID in dropdown
+                option.value = product.productId; // Set value to customer ID
+                option.text = product.productId; // Display customer ID in dropdown
                 $('#productSelectID').append(option);
             });
         },
@@ -104,7 +104,7 @@ $('#productSelectID').on('change', function() {
     console.log('Selected product ID:', prodId);
 
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/product?id="+prodId,
+        url: "http://localhost:8080/POS/api/v1/products/"+prodId,
         type: "GET",
         headers: {"Content-Type": "application/json"},
         success: (res) => {
