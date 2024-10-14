@@ -107,10 +107,10 @@ export function loadTableCustomer() {
             $('#customer-table').empty();
             results.forEach(function (post) {
                 var record = `<tr>
-                                <td class = "">${post.id}</td>     
-                                <td class = "">${post.name}</td>
-                                <td class = "">${post.address}</td>     
-                                <td class = "">${post.phone}</td>
+                                <td class = "">${post.customerId}</td>     
+                                <td class = "">${post.customerName}</td>
+                                <td class = "">${post.customerAddress}</td>     
+                                <td class = "">${post.customerPhone}</td>
                             </tr>`;
                 $('#customer-table').append(record);
             });

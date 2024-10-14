@@ -7,7 +7,7 @@ const date = new Date();
 let recordIndex = undefined;
 let orderDate = date.getFullYear()+"/"+date.getMonth()+"/"+date.getDate();
 
-//loadTableCart()
+loadTableCart()
 $('#orderDate').text(orderDate);
 
 function updateCustomerIDs() {
@@ -28,8 +28,8 @@ function updateCustomerIDs() {
             // Assuming `res` is an array of customer objects
             res.forEach(customer => {
                 const option = document.createElement("option");
-                option.value = customer.id; // Set value to customer ID
-                option.text = customer.id; // Display customer ID in dropdown
+                option.value = customer.customerId; // Set value to customer ID
+                option.text = customer.customerId; // Display customer ID in dropdown
                 $('#customerSelectID').append(option);
             });
         },
@@ -56,7 +56,7 @@ $('#customerSelectID').on('change', function() {
         success: (res) => {
             console.log('Selected Customer:', res);
             // Update the input element with the customer's name
-            $('#customerName').val(res.name);
+            $('#customerName').val(res.customerName);
         },
         error: (res) => {
             console.error('Error fetching selected customer data:', res);
@@ -110,10 +110,10 @@ $('#productSelectID').on('change', function() {
         success: (res) => {
             console.log('Selected Customer:', res);
             // Update the input element with the customer's name
-            $('#productName').val(res.name);
-            $('#productType').val(res.type);
-            $('#productQTY').val(res.qty);
-            $('#productPrice').val(res.price);
+            $('#productName').val(res.productName);
+            $('#productType').val(res.productType);
+            $('#productQTY').val(res.productQty);
+            $('#productPrice').val(res.productPrice);
         },
         error: (res) => {
             console.error('Error fetching selected product data:', res);
@@ -128,7 +128,7 @@ function loadTableCart() {
     $('#order-table').empty();
     $('#dash-table').empty();
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/orders",
+        url: "http://localhost:8080/POS/api/v1/orders",
         method: "GET",
         success: function (results) {
             $('#cart-table').empty();
@@ -228,7 +228,7 @@ $('#addToCart').on('click', () => {
     const orderJSON = JSON.stringify(order)
     console.log(orderJSON);
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/orders",
+        url: "http://localhost:8080/POS/api/v1/orders",
         type: "POST",
         data : orderJSON,
         headers: {"Content-Type": "application/json"},
@@ -251,22 +251,22 @@ $('#addToCart').on('click', () => {
 
         //totalOrders();
         //console.log(orderDetails);
-        clearFields();
+    clearFields();
     console.log(orderId);
 });
 
-$('#removeFromCart').on('click', () => {
-    let orderId = $('#orderId').val();
-    $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/orders?id="+orderId,
-        type: "DELETE",
-        headers: {"Content-Type": "application/json"},
-        success: (res) => {
-            console.log(JSON.stringify(res));
-            loadTableCart();
-        },
-        error: (res) => {
-            console.error(res);
-        }
-    });
-});
+// $('#removeFromCart').on('click', () => {
+//     let orderId = $('#orderId').val();
+//     $.ajax({
+//         url: "http://localhost:8081/POS_BackEnd/orders?id="+orderId,
+//         type: "DELETE",
+//         headers: {"Content-Type": "application/json"},
+//         success: (res) => {
+//             console.log(JSON.stringify(res));
+//             loadTableCart();
+//         },
+//         error: (res) => {
+//             console.error(res);
+//         }
+//     });
+// });

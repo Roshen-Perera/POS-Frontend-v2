@@ -162,8 +162,8 @@
           <input id="reg-custom-user" type="text" class="form-control" id="userName" placeholder="Enter Your Name">
         </div>
         <div class="mb-3">
-          <input id="reg-custom-email" type="email" class="form-control" id="emailAddress"
-            aria-describedby="emailHelp" placeholder="Enter you Email Address">
+          <input id="reg-custom-email" type="email" class="form-control" id="emailAddress" aria-describedby="emailHelp"
+            placeholder="Enter you Email Address">
         </div>
         <div>
           <input id="reg-custom-pw" type="password" id="inputPassword" class="form-control"
@@ -202,14 +202,14 @@
       </div>
       <table class="dash-custom-table table table-bordered">
         <thead>
-        <tr>
-          <th scope="col">Order ID</th>
-          <th scope="col">Product Name</th>
-          <th scope="col">Product Type</th>
-          <th scope="col">QTY</th>
-          <th scope="col">Price</th>
-          <th scope="col">Total</th>
-        </tr>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Type</th>
+            <th scope="col">QTY</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+          </tr>
         </thead>
         <tbody id="dash-table">
         </tbody>
@@ -222,27 +222,27 @@
         <form class="needs-validation" novalidate>
           <div class="col-md-6 col-sm-12">
             <input id="cus-custom-id" type="text" class="form-control" placeholder="ID">
-<!--            <label id="customerIdCheck" style="color: red;">-->
-<!--              **ID is missing-->
-<!--            </label>-->
+            <!--            <label id="customerIdCheck" style="color: red;">-->
+            <!--              **ID is missing-->
+            <!--            </label>-->
           </div>
           <div class="col-md-6 col-sm-12">
             <input id="cus-custom-user" type="text" class="form-control" placeholder="Name" required>
-<!--            <label id="customerUserCheck" style="color: red;">-->
-<!--              **Username is missing-->
-<!--            </label>-->
+            <!--            <label id="customerUserCheck" style="color: red;">-->
+            <!--              **Username is missing-->
+            <!--            </label>-->
           </div>
           <div class="col-md-6 col-sm-12">
             <input id="cus-custom-address" type="text" class="form-control" placeholder="Address" required>
-<!--            <label id="customerAddressCheck" style="color: red;">-->
-<!--              **Address is missing-->
-<!--            </label>-->
+            <!--            <label id="customerAddressCheck" style="color: red;">-->
+            <!--              **Address is missing-->
+            <!--            </label>-->
           </div>
           <div class="col-md-6 col-sm-12">
             <input id="cus-custom-mobile" type="number" class="form-control" placeholder="Mobile Number" required>
-<!--            <label id="customerMobileCheck" style="color: red;">-->
-<!--              **Mobile Number is missing-->
-<!--            </label>-->
+            <!--            <label id="customerMobileCheck" style="color: red;">-->
+            <!--              **Mobile Number is missing-->
+            <!--            </label>-->
           </div>
           <!--<div class="col-md-6 col-sm-12">
             <input id="cus-custom-search" type="text" class="form-control" placeholder="Search">
@@ -326,14 +326,14 @@
     <div class="pane">
       <table class="order-custom-table table table-striped table-bordered">
         <thead>
-        <tr>
-          <th scope="col">Order ID</th>
-          <th scope="col">Product Name</th>
-          <th scope="col">Product Type</th>
-          <th scope="col">QTY</th>
-          <th scope="col">Price</th>
-          <th scope="col">Total</th>
-        </tr>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Type</th>
+            <th scope="col">QTY</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+          </tr>
         </thead>
         <tbody id="order-table">
         </tbody>
@@ -395,34 +395,33 @@
             <label for="productPrice" class="form-label">Price</label>
             <input type="text" class="form-control" id="productPrice" required>
           </div>
-            <div class="btn-grp">
-              <button id="addToCart" type="button" class="btn btn-success">Place Order</button>
-              <button id="removeFromCart" type="button" class="btn btn-danger">Remove from Cart</button>
-              <button id="clear" type="button" class="btn btn-warning">Clear</button>
-            </div>
+          <div class="btn-grp">
+            <button id="addToCart" type="button" class="btn btn-success">Place Order</button>
+            <button id="removeFromCart" type="button" class="btn btn-danger">Remove from Cart</button>
+            <button id="clear" type="button" class="btn btn-warning">Clear</button>
+          </div>
         </form>
         <div class="div-table">
           <table class="neworder-custom-table table table-bordered">
             <thead>
-            <tr>
-              <th scope="col">Order ID</th>
-              <th scope="col">Product Name</th>
-              <th scope="col">Product Type</th>
-              <th scope="col">QTY</th>
-              <th scope="col">Price</th>
-              <th scope="col">Total</th>
-            </tr>
+              <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Type</th>
+                <th scope="col">QTY</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+              </tr>
             </thead>
             <tbody id="cart-table">
             </tbody>
           </table>
         </div>
       </div>
-      </div>
+    </div>
 
   </div>
-  <script
-          src="assets/lib/jquery-3.7.1.min.js"></script>
+  <script src="assets/lib/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
@@ -438,7 +437,7 @@
     $("#neworder-page").css({ display: "none" });
 
     // $('#login-btn').on('click', () => {
-    
+
     //   $("#navigation").css({ display: "block" });
     //   $("#login-page").css({ display: "none" });
     //   $("#register-page").css({ display: "none" });
@@ -540,4 +539,5 @@
   <script type="module" src="controller/ProductController.js"></script>
   <script type="module" src="controller/PlaceOrderController.js"></script>
 </body>
+
 </html>

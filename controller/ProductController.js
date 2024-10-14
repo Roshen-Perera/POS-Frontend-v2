@@ -98,10 +98,10 @@ function validatePrice(){
             results.forEach(function (post) {
                 var record = `<tr>
                                 <td>${post.productId}</td>     
-                                <td>${post.name}</td>
-                                <td>${post.type}</td>     
-                                <td>${post.qty}</td>
-                                <td>${post.price}</td>
+                                <td>${post.productName}</td>
+                                <td>${post.productType}</td>     
+                                <td>${post.productQty}</td>
+                                <td>${post.productPrice}</td>
                             </tr>`;
                 $('#product-table').append(record);
             });
@@ -125,10 +125,10 @@ $('#btnSearchProduct').on('click', () => {
                 alert("Product not found");
             } else{
                 console.log(JSON.stringify(res));
-                $('#pro-custom-name').val(res.name);
-                $('#pro-custom-type').val(res.type);
-                $('#pro-custom-qty').val(res.qty);
-                $('#pro-custom-price').val(res.price);
+                $('#pro-custom-name').val(res.productName);
+                $('#pro-custom-type').val(res.productType);
+                $('#pro-custom-qty').val(res.productQty);
+                $('#pro-custom-price').val(res.productPrice);
             }
         },
         error: (res) => {
