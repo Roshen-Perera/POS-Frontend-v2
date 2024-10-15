@@ -255,18 +255,18 @@ $('#addToCart').on('click', () => {
     console.log(orderId);
 });
 
-// $('#removeFromCart').on('click', () => {
-//     let orderId = $('#orderId').val();
-//     $.ajax({
-//         url: "http://localhost:8081/POS_BackEnd/orders?id="+orderId,
-//         type: "DELETE",
-//         headers: {"Content-Type": "application/json"},
-//         success: (res) => {
-//             console.log(JSON.stringify(res));
-//             loadTableCart();
-//         },
-//         error: (res) => {
-//             console.error(res);
-//         }
-//     });
-// });
+$('#removeFromCart').on('click', () => {
+    let orderId = $('#orderId').val();
+    $.ajax({
+        url: "http://localhost:8080/POS/api/v1/orders/"+orderId,
+        type: "DELETE",
+        headers: {"Content-Type": "application/json"},
+        success: (res) => {
+            console.log(JSON.stringify(res));
+            loadTableCart();
+        },
+        error: (res) => {
+            console.error(res);
+        }
+    });
+});
