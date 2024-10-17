@@ -11,15 +11,15 @@ $('#reg-btn').click(function(e) {
     }
 
     let user = {
-        name: username,
-        email: emailAddress,
+        userName: username,
+        userEmail: emailAddress,
         password: password
     }
 
     const userJSON = JSON.stringify(user)
     console.log(userJSON);
     $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/register",
+        url: "http://localhost:8080/POS/api/v1/users",
         type: "POST",
         data : userJSON,
         headers: {"Content-Type": "application/json"},

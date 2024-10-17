@@ -13,25 +13,44 @@ $('#login-btn').click(function(e) {
         return false;
     }
 
-    $.ajax({
-        url: "http://localhost:8081/POS_BackEnd/login?name="+loginUsername+"&password="+loginPassword,
-        type: "POST",
-        headers: {"Content-Type": "application/json"},
-        success: (res) => {
-            console.log(JSON.stringify(res));
-            alert('Login successful');
-            $("#navigation").css({ display: "block" });
-            $("#login-page").css({ display: "none" });
-            $("#register-page").css({ display: "none" });
-            $("#dashboard-page").css({ display: "block" });
-            $("#customer-page").css({ display: "none" });
-            $("#product-page").css({ display: "none" });
-            $("#order-page").css({ display: "none" });
-            $("#neworder-page").css({ display: "none" });
+    var settings = {
+        "url": "http://localhost:8080/POS/api/v1/users",
+        "method": "PUT",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/json"
         },
-        error: (res) => {
-            console.error(res);
-            alert('Invalid username or password');
-        }
-    });
+        "data": JSON.stringify({
+          "userName": loginUsername,
+          "password": loginPassword
+        }),
+        "dataType": "text"
+      };
+      
+      // Make the AJAX request
+      $.ajax(settings)
+        .done(function(response) {
+          console.log("Response:", response);
+          if (response === "Access granted") {
+            console.log("Login successful!");
+              $("#navigation").css({ display: "block" });
+              $("#login-page").css({ display: "none" });
+              $("#register-page").css({ display: "none" });
+              $("#dashboard-page").css({ display: "block" });
+              $("#customer-page").css({ display: "none" });
+              $("#product-page").css({ display: "none" });
+              $("#order-page").css({ display: "none" });
+              $("#neworder-page").css({ display: "none" });
+          } else {
+            console.log("Invalid login credentials");
+            alert("Invalid username or password");
+          }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          console.error("Error:", textStatus, errorThrown);
+          alert("There was an error logging in. Please try again.");
+        });
+      
 });
+
+
