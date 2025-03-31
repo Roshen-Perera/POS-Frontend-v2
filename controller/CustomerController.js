@@ -376,9 +376,9 @@ $('#customer-delete-btn').on('click', () => {
     clearFields();
 });
 
-$('#customer-clear-btn').on('click', () => {
-    clearFields();
-});
+    $('#customer-clear-btn').on('click', () => {
+        clearFields();
+    });
 
 $('#btnGetAllCustomer').on('click', () => {
     loadTableCustomer();
@@ -390,3 +390,4 @@ function clearFields() {
     $('#cus-custom-address').val('');
     $('#cus-custom-mobile').val('');
 }
+

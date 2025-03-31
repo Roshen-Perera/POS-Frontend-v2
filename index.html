@@ -511,14 +511,16 @@
       $("#neworder-page").css({ display: "none" });
     });
     $('#logout-nav').on('click', () => {
-      $("#navigation").css({ display: "none" });
-      $("#login-page").css({ display: "block" });
-      $("#register-page").css({ display: "none" });
-      $("#dashboard-page").css({ display: "none" });
-      $("#customer-page").css({ display: "none" });
-      $("#product-page").css({ display: "none" });
-      $("#order-page").css({ display: "none" });
-      $("#neworder-page").css({ display: "none" });
+      if (confirm("Are you sure you want to logout?")) {
+        $("#navigation").css({ display: "none" });
+        $("#login-page").css({ display: "block" });
+        $("#register-page").css({ display: "none" });
+        $("#dashboard-page").css({ display: "none" });
+        $("#customer-page").css({ display: "none" });
+        $("#product-page").css({ display: "none" });
+        $("#order-page").css({ display: "none" });
+        $("#neworder-page").css({ display: "none" });
+      }
     });
     $('#neworder-btn').on('click', () => {
       $("#navigation").css({ display: "block" });
